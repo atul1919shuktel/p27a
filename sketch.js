@@ -1,66 +1,65 @@
-
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
-const body = Matter.Body;
-const Render= Matter.Render;
+const Body = Matter.Body;
 const Constraint = Matter.Constraint;
+var bobObject1, bobObject2, bobObject3, bobObject4, bobObject5;
+var roofObject, rope1, rope2, rope3, rope4, rope5;
 
+function preload()
+{
+	
+}
 
 function setup() {
-	createCanvas(800, 400);
-
+	createCanvas(800, 600);
 
 	engine = Engine.create();
 	world = engine.world;
 
+	
+    bobObject1 = new Bob(400,400);
+	bobObject2 = new Bob(450,400);
+	bobObject3 = new Bob(500,400);
+	bobObject4 = new Bob(350,400);
+	bobObject5 = new Bob(300,400);
+  roofObject = new Ground(400,200,550,30); 
+  rope1 = new Rope(bobObject1.body, roofObject.body, 0, 0);
+  rope2 = new Rope(bobObject2.body, roofObject.body,50,0);
+  rope3 = new Rope(bobObject3.body, roofObject.body,100, 0);
+  rope4 = new Rope(bobObject4.body, roofObject.body, -50, 0);
+  rope5 = new Rope(bobObject5.body, roofObject.body, -100, 0);
 
-bob1=new Bob(300,350,50);
-bob2=new Bob(350,350,50);
-bob3=new Bob(400,350,50);
-bob4=new Bob(450,350,50);
-bob5=new Bob(500,350,50);
-
-  ground1 = new Ground(400,100,300,40);
-  sling1= new Suspender(bob1.body,ground1.body,-50*2,0);
-  sling2= new Suspender(bob2.body,ground1.body,-25*2,0);
-  sling3= new Suspender(bob3.body,ground1.body,-0*2,0);
-  sling4= new Suspender(bob4.body,ground1.body,25*2,0);
-  sling5= new Suspender(bob5.body,ground1.body,50*2,0);
- 
 	Engine.run(engine);
   
 }
 
 
 function draw() {
-  background(100);
-
   rectMode(CENTER);
-  Engine.update(engine);
-  bob1.display();
-  bob2.display();
-  bob3.display();
-  bob3.display();
-  bob4.display();
-  bob5.display();
- ;
-  ground1.display();
-  sling1.display();
-  sling2.display();
-  sling3.display();
-  sling4.display();
-  sling5.display();
-  
+  background("cyan");
+  bobObject1.display();
+  bobObject2.display();
+  bobObject3.display();
+  bobObject4.display();
+  bobObject5.display();
+  roofObject.display();
+  rope1.display();
+  rope2.display();
+  rope3.display();
+  rope4.display();
+  rope5.display();
+  drawSprites();
+ }
+ function keyPressed() {
+  if (keyCode === UP_ARROW) {
+    Matter.Body.applyForce(bobObject3.body, bobObject5.body.position,{x:75,y:-75});
+   }
 
-  keyPressed();
-  drawSprites ();
-}
-
-function keyPressed() { 
-	if (keyCode === UP_ARROW) 
-	{ Matter.Body.applyForce(bob1.body,bob1.body.position,{x:-100,y:-100}); } 
-} 
+   if (keyCode === DOWN_ARROW) {
+    Matter.Body.applyForce(bobObject3.body, bobObject1.body.position,{x:175,y:-75});
+   }
+ }
 
 
 
